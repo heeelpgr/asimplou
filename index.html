@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ασημένια Πλουμή | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f5f5f5;
+            --gray: #888;
+            --accent: #c23a3a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('83ad49212848459.673c61fd16a2b.jpg') center/cover;
+            filter: brightness(0.3);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(60px, 15vw, 180px);
+            letter-spacing: 20px;
+            line-height: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--gray);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 8vw, 100px);
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-intro {
+            max-width: 700px;
+            font-size: 20px;
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 60px;
+            line-height: 1.8;
+        }
+
+        /* Statement Section */
+        #statement {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .statement-text {
+            font-size: clamp(24px, 4vw, 42px);
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 1000px;
+            color: var(--white);
+        }
+
+        .statement-text .highlight {
+            color: var(--accent);
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.7);
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        /* PDF Section */
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+        }
+
+        .pdf-card {
+            background: #111;
+            padding: 30px;
+            border: 1px solid #222;
+        }
+
+        .pdf-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .pdf-card p {
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background: #000;
+        }
+
+        .pdf-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 3px;
+            transition: color 0.3s;
+        }
+
+        .pdf-link:hover {
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        /* Thesis Section */
+        #thesis {
+            background: linear-gradient(to bottom, var(--black), #0f0f0f);
+        }
+
+        .thesis-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .thesis-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(60px, 10vw, 120px);
+            letter-spacing: 15px;
+            line-height: 1;
+        }
+
+        .thesis-title span {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-style: italic;
+            letter-spacing: 5px;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+
+        .thesis-description {
+            font-size: 18px;
+            line-height: 2;
+            color: var(--gray);
+        }
+
+        .thesis-pdf {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #222;
+        }
+
+        /* Contact */
+        #contact {
+            text-align: center;
+            padding: 150px 40px;
+        }
+
+        .contact-email {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(30px, 6vw, 60px);
+            letter-spacing: 5px;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-email:hover {
+            color: var(--accent);
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #222;
+            color: var(--gray);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+
+            .pdf-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .thesis-hero {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">A. PLOUMI</a>
+        <ul class="nav-links">
+            <li><a href="#statement">Statement</a></li>
+            <li><a href="#modeling">Photography</a></li>
+            <li><a href="#sculpture">Sculpture</a></li>
+            <li><a href="#thesis">Thesis</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>ΑΣΗΜΕΝΙΑ<br>ΠΛΟΥΜΗ</h1>
+        <p class="subtitle">Sculptor & Visual Artist</p>
+        <span class="scroll-indicator">Scroll</span>
+    </section>
+
+    <section id="statement">
+        <p class="statement-text">
+            Η καλλιτεχνική μου πρακτική εξερευνά το <span class="highlight">νερό</span> ως μεταφορά της ανθρώπινης ύπαρξης —
+            τη ρευστότητα, τη μεταμόρφωση, την αντίσταση και την υποχώρηση.
+            <br><br>
+            Με ενδιαφέρει η διαλεκτική σχέση ανάμεσα στο <span class="highlight">στέρεο</span> και το <span class="highlight">υγρό</span>,
+            στο μόνιμο και το εφήμερο.
+            <br><br>
+            Μέσα από τη γλυπτική σε σίδηρο, μάρμαρο και πηλό, αναζητώ να αποτυπώσω στιγμές μετάβασης —
+            εκεί όπου η μορφή συναντά την αποσύνθεση, όπου η σταθερότητα αγκαλιάζει τη ροή.
+        </p>
+    </section>
+
+    <section id="modeling">
+        <h2 class="section-title">PHOTOGRAPHY</h2>
+        <p class="section-intro">
+            Exploring the body as sculpture — collaborations with photographers and fashion editorials.
+        </p>
+
+        <div class="gallery">
+            <div class="gallery-item tall">
+                <img src="d19df5212848459.673c61fd17034.jpg" alt="Editorial Photography" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="dc04d5212848459.673c61fd162ee.jpg" alt="Editorial Photography" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="592579911_18292894147302687_6546148469854883171_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="597838757_18292894081302687_3501282548307782414_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item tall">
+                <img src="597898315_18292894156302687_8436569247000110698_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="598557059_18292894138302687_4867617902101227143_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="598637670_18292894093302687_5919295605353120439_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="598684209_18292894117302687_3527755836649500482_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="597925958_18292894108302687_885917080718713137_n.jpg" alt="Fashion Editorial" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="459997491_830899042183958_927818859903223323_n.webp" alt="Photography" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="460130033_2829592327208453_4512314084612472096_n.webp" alt="Photography" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="460226423_1069177074623916_1158542771242859905_n.webp" alt="Photography" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="sculpture">
+        <h2 class="section-title">SCULPTURE</h2>
+        <p class="section-intro">
+            Works in iron, marble, clay and foam — exploring biomorphic forms and the traces that water leaves behind.
+        </p>
+
+        <div class="pdf-grid">
+            <div class="pdf-card">
+                <h3>BIOMORPHISM</h3>
+                <p>Ceramic and metal sculptures exploring organic forms</p>
+                <embed src="PORTFOLIO ploumi.pdf" type="application/pdf" class="pdf-embed">
+                <a href="PORTFOLIO ploumi.pdf" target="_blank" class="pdf-link">Open Full PDF →</a>
+            </div>
+
+            <div class="pdf-card">
+                <h3>CERAMICS</h3>
+                <p>Water as element — forms shaped by flow and erosion</p>
+                <embed src="PORTFOLIO mina ploumi.pdf" type="application/pdf" class="pdf-embed">
+                <a href="PORTFOLIO mina ploumi.pdf" target="_blank" class="pdf-link">Open Full PDF →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="thesis">
+        <div class="thesis-hero">
+            <div>
+                <h2 class="thesis-title">
+                    PURIFY
+                    <span>Diploma Thesis — AUTh School of Fine Arts, 2025</span>
+                </h2>
+            </div>
+            <div>
+                <p class="thesis-description">
+                    A large-scale sculptural installation exploring the concept of a labyrinth —
+                    a journey of purification through space and form.
+                    <br><br>
+                    Influenced by the organic architecture of Zaha Hadid, the fluid forms of Frank Gehry,
+                    and the biomorphic sculptures of Barbara Hepworth.
+                    <br><br>
+                    The work invites viewers to physically navigate through sculptural elements,
+                    experiencing the dialogue between solid and void, presence and absence.
+                </p>
+            </div>
+        </div>
+
+        <embed src="ΜΙΝΑ ΑΡΧΕΙΟ ΓΙΑ ΠΤΥΧΙΑΚΗ final ar.stixisi kimeno.pdf" type="application/pdf" class="thesis-pdf">
+        <a href="ΜΙΝΑ ΑΡΧΕΙΟ ΓΙΑ ΠΤΥΧΙΑΚΗ final ar.stixisi kimeno.pdf" target="_blank" class="pdf-link">Open Full Thesis →</a>
+    </section>
+
+    <section id="contact">
+        <a href="mailto:asimplou@gmail.com" class="contact-email">ASIMPLOU@GMAIL.COM</a>
+        <p class="contact-info">
+            Thessaloniki, Greece &nbsp;&nbsp;|&nbsp;&nbsp; +30 694 585 5175
+        </p>
+    </section>
+
+    <footer>
+        © 2025 Ασημένια Πλουμή — All rights reserved
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="">
+    </div>
+
+    <script>
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+
+        galleryItems.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(10,10,10,0.95)';
+            } else {
+                nav.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.9), transparent)';
+            }
+        });
+    </script>
+
+</body>
+</html>
